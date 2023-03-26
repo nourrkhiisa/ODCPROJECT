@@ -1,0 +1,58 @@
+
+.CourseList {
+    font-family: Arial, sans-serif;
+  }
+  
+  .CourseList h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .CourseList ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .CourseList li {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 1rem;
+  }
+  
+  .CourseList button {
+    background-color: #007bff;
+    border: none;
+    border-radius: 0.25rem;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s;
+  }
+  
+  .CourseList button:hover,
+  .CourseList button:focus {
+    background-color: #0056b3;
+  }
+  
+  @media (max-width: 768px) {
+    .CourseList h2 {
+      font-size: 1.25rem;
+    }
+  
+    .CourseList li {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .CourseList button {
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+    }
+  }
+  

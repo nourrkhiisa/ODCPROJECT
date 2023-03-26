@@ -1,0 +1,110 @@
+/* Reset some default styles */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+li,
+button {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Basic layout styles */
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Main content area */
+main {
+  flex: 1;
+  padding: 1rem;
+}
+
+/* Navbar styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #222;
+}
+
+.navbar-brand {
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-menu > li {
+  list-style: none;
+  margin-right: 1rem;
+}
+
+.navbar-menu > li:last-child {
+  margin-right: 0;
+}
+
+.navbar-menu a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.navbar-menu a:hover {
+  color: #ccc;
+}
+
+/* Form styles */
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+form label {
+  margin-bottom: 0.5rem;
+}
+
+form input,
+form textarea,
+form select {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+}
+
+form button {
+  padding: 0.5rem;
+  background-color: #222;
+  color: #fff;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #444;
+}
+
+/* Utility classes */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mt-3 {
+  margin-top: 1rem;
+}

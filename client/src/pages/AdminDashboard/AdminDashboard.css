@@ -1,0 +1,69 @@
+.admin-dashboard {
+    font-family: Arial, sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  
+  .admin-dashboard h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .admin-dashboard h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .admin-dashboard ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .admin-dashboard li {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 1rem;
+  }
+  
+  .admin-dashboard button {
+    background-color: #007bff;
+    border: none;
+    border-radius: 0.25rem;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s;
+  }
+  
+  .admin-dashboard button:hover,
+  .admin-dashboard button:focus {
+    background-color: #0056b3;
+  }
+  
+  .admin-dashboard .section {
+    margin-bottom: 2rem;
+  }
+  
+  @media (max-width: 768px) {
+    .admin-dashboard h1 {
+      font-size: 1.75rem;
+    }
+  
+    .admin-dashboard h2 {
+      font-size: 1.25rem;
+    }
+  
+    .admin-dashboard li {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  

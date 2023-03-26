@@ -1,0 +1,39 @@
+.coach-dashboard {
+    font-family: Arial, sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  
+  .coach-dashboard h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .coach-dashboard button {
+    background-color: #007bff;
+    border: none;
+    border-radius: 0.25rem;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s;
+  }
+  
+  .coach-dashboard button:hover,
+  .coach-dashboard button:focus {
+    background-color: #0056b3;
+  }
+  
+  .coach-dashboard .section {
+    margin-bottom: 2rem;
+  }
+  
+  @media (max-width: 768px) {
+    .coach-dashboard h1 {
+      font-size: 1.75rem;
+    }
+  }
+  

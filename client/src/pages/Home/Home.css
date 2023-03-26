@@ -1,0 +1,84 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+    color: #333;
+  }
+  
+  .home h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .home p {
+    font-size: 1.25rem;
+    text-align: center;
+    max-width: 800px;
+    margin-bottom: 2rem;
+  }
+  
+  .cta-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+  
+  .btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    font-size: 1.25rem;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 0.25rem;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: 2px solid #007bff;
+  }
+  
+  .btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+    border: 2px solid #6c757d;
+  }
+  
+  .btn-primary:hover,
+  .btn-primary:focus {
+    background-color: #0056b3;
+    color: #fff;
+    text-decoration: none;
+    border-color: #0056b3;
+  }
+  
+  .btn-secondary:hover,
+  .btn-secondary:focus {
+    background-color: #5a6268;
+    color: #fff;
+    text-decoration: none;
+    border-color: #5a6268;
+  }
+  
+  @media (max-width: 576px) {
+    .home h1 {
+      font-size: 2rem;
+    }
+  
+    .home p {
+      font-size: 1rem;
+    }
+  
+    .btn {
+      font-size: 1rem;
+      padding: 0.25rem 0.5rem;
+    }
+  }
+  

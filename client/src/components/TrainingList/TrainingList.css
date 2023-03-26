@@ -1,0 +1,23 @@
+.training-list {
+    padding: 16px;
+  }
+  
+  .training-list h2 {
+    margin-bottom: 16px;
+  }
+  
+  .training-list ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .training-list li {
+    cursor: pointer;
+    padding: 8px 0;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .training-list li:hover {
+    background-color: #f0f0f0;
+  }
+  

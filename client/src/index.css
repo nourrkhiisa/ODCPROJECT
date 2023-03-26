@@ -1,0 +1,41 @@
+/* index.css */
+
+/* Reset margin and padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Set default font family and size */
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+}
+
+/* Set default link styles */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Set default button styles */
+button {
+  cursor: pointer;
+}
+
+/* Set default list styles */
+ul {
+  list-style: none;
+}
+
+/* Set default image styles */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Set any other global styles that you want to apply */
+/* ... */
