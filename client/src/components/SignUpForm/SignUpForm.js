@@ -15,7 +15,7 @@ const SignUpForm = ({ onSubmit }) => {
 
   return (
     <div className="sign-up-form">
-      <h2>Sign Up</h2>
+      <h2>Create an Account</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="email">Email:</label>
@@ -65,7 +65,7 @@ const SignUpForm = ({ onSubmit }) => {
             <option value="admin">Admin</option>
           </select>
         </div>
-        <button type="submit">Sign Up</button>
+        <button className="btn-sign-up" type="submit">Sign Up</button>
       </form>
     </div>
   );

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import "../../pages/LoginPage/LoginPage.css"; 
+
 
 const LoginForm = ({ login }) => {
   const [email, setEmail] = useState("");
@@ -18,11 +20,11 @@ const LoginForm = ({ login }) => {
 
   return (
     <div>
-      <h2>Login</h2>
+      <h2 className="login-text">Welcome Back</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="email">Email:</label>
-          <input
+          <input className="input1"
             type="email"
             id="email"
             name="email"
@@ -33,7 +35,7 @@ const LoginForm = ({ login }) => {
         </div>
         <div>
           <label htmlFor="password">Password:</label>
-          <input
+          <input className="input2"
             type="password"
             id="password"
             name="password"
@@ -43,7 +45,7 @@ const LoginForm = ({ login }) => {
           />
         </div>
         {error && <p>{error}</p>}
-        <button type="submit">Login</button>
+        <button className="login-button" type="submit">Login</button>
       </form>
     </div>
   );

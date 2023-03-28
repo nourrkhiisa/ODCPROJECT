@@ -4,6 +4,7 @@ import LoginForm from "../../components/LoginForm/LoginForm";
 import { AuthContext } from "../../contexts/AuthContext";
 import "./LoginPage.css";
 
+
 const LoginPage = () => {
   const [error, setError] = useState(null);
   const { login, setCurrentUser, role } = useContext(AuthContext);
@@ -46,7 +47,6 @@ const LoginPage = () => {
 
   return (
     <div className="login-page">
-      <h2>Login</h2>
       {error && <div className="alert alert-danger">{error}</div>}
       <LoginForm login={handleLogin} />
     </div>
