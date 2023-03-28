@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./CreateEvaluationQuiz.css";
 
 const CreateEvaluationQuiz = ({ courseId, onSubmit }) => {
   const [questions, setQuestions] = useState([
@@ -27,7 +28,7 @@ const CreateEvaluationQuiz = ({ courseId, onSubmit }) => {
   };
 
   return (
-    <div>
+    <div className="create-evaluation-quiz">
       <h2>Create Evaluation Quiz</h2>
       <form onSubmit={handleSubmit}>
         {questions.map((question, questionIndex) => (

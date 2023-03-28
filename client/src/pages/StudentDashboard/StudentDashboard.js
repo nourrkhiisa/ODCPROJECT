@@ -39,7 +39,7 @@ const StudentDashboard = () => {
   return (
     <div className="student-dashboard">
       {currentUser && <h2>Welcome, {currentUser.displayName}</h2>}
-      <h3>Available Courses</h3>
+      
       <CourseList courses={filteredCourses} enrollInCourse={enrollInCourse} />
       <button onClick={handleLogout}>Logout</button>
       {/* <CourseList courses={filteredCourses} /> */}

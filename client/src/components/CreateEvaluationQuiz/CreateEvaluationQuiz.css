@@ -1,0 +1,116 @@
+/* .create-evaluation-quiz {
+    font-family: Arial, sans-serif;
+    padding: 1rem;
+  }
+  
+  .create-evaluation-quiz h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+  
+  .create-evaluation-quiz form {
+    background-color: #f8f9fa;
+    border-radius: 0.25rem;
+    padding: 1rem;
+  }
+  
+  .create-evaluation-quiz input[type="text"] {
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    padding: 0.5rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .create-evaluation-quiz input[type="text"]:focus {
+    border-color: #ff7f00;
+    box-shadow: 0 0 0 0.2rem rgba(255, 127, 0, 0.25);
+  }
+  
+  .create-evaluation-quiz button {
+    background-color: #ff7f00;
+    border: none;
+    border-radius: 0.25rem;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+    margin: 0.5rem 0;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s;
+  }
+  
+  .create-evaluation-quiz button[type="submit"] {
+    margin-left: 0.5rem;
+  }
+  
+  .create-evaluation-quiz button:hover,
+  .create-evaluation-quiz button:focus {
+    background-color: #cc6600;
+  }
+   */
+
+   .create-evaluation-quiz {
+    font-family: Arial, sans-serif;
+    padding: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .create-evaluation-quiz h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    color: #333;
+    text-align: center;
+  }
+  
+  .create-evaluation-quiz form {
+    background-color: #f8f9fa;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .create-evaluation-quiz input[type="text"] {
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    padding: 0.5rem;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 0.5rem;
+  }
+  
+  .create-evaluation-quiz input[type="text"]:focus {
+    border-color: #ff7f00;
+    box-shadow: 0 0 0 0.2rem rgba(255, 127, 0, 0.25);
+  }
+  
+  .create-evaluation-quiz button {
+    background-color: #ff7f00;
+    border: none;
+    border-radius: 0.25rem;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+    margin: 1rem 0;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  .create-evaluation-quiz button[type="submit"] {
+    margin-left: 0.5rem;
+  }
+  
+  .create-evaluation-quiz button:hover,
+  .create-evaluation-quiz button:focus {
+    background-color: #cc6600;
+    transform: scale(1.05);
+  }
+
+h2{
+    margin-left: 10px;
+}

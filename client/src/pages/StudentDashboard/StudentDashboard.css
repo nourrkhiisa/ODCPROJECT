@@ -12,7 +12,7 @@
 }
 
 .student-dashboard button {
-  background-color: #007bff;
+  background-color: #ff7f00;
   border: none;
   border-radius: 0.25rem;
   color: #fff;
@@ -25,7 +25,7 @@
 
 .student-dashboard button:hover,
 .student-dashboard button:focus {
-  background-color: #0056b3;
+  background-color: black;
 }
 
 @media (max-width: 768px) {

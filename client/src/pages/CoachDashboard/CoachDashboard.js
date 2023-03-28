@@ -85,7 +85,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { QuizContext } from "../../contexts/QuizContext";
 import CourseCreateEvaluationQuiz from "../../components/CourseCreateEvaluationQuiz/CourseCreateEvaluationQuiz";
-
+import "./CoachDashboard.css";
 const CoachDashboard = () => {
   console.log("Rendering CoachDashboard...");
   const { currentUser, setCurrentUser } = useContext(AuthContext); // Destructure setCurrentUser from AuthContext

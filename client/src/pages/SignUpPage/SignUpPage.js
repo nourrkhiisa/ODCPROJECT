@@ -34,7 +34,6 @@ const SignUpPage = () => {
 
   return (
     <div className="sign-up-page">
-      <h2>Sign Up</h2>
       {error && <div className="alert alert-danger">{error}</div>}
       <SignUpForm onSubmit={handleSignUp} />
     </div>
