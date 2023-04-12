@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import "./LoginForm.css";
 const LoginForm = ({ login }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -43,7 +43,9 @@ const LoginForm = ({ login }) => {
           />
         </div>
         {error && <p>{error}</p>}
-        <button type="submit">Login</button>
+        <div className="btn">
+          <button type="submit">Login</button>
+        </div>
       </form>
     </div>
   );

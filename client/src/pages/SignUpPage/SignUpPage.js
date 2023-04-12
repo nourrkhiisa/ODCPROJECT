@@ -26,7 +26,7 @@ const SignUpPage = () => {
       }); // Add this line to log the request body
 
       await signUp(email, password, firstName, lastName, role);
-      navigate("/dashboard");
+      navigate("/login");
     } catch (err) {
       setError(err.message);
     }
@@ -34,7 +34,6 @@ const SignUpPage = () => {
 
   return (
     <div className="sign-up-page">
-      <h2>Sign Up</h2>
       {error && <div className="alert alert-danger">{error}</div>}
       <SignUpForm onSubmit={handleSignUp} />
     </div>

@@ -1,39 +1,44 @@
-import React, { createContext, useState, useEffect } from "react";
-import courseService from "../services/courseService";
+// CourseContext.js
+import React, { createContext, useState, useEffect, useCallback } from "react";
+import { courseService } from "../services/courseService";
 
 export const CourseContext = createContext();
 
-export const CourseProvider = ({ children }) => {
+export const CourseProvider = ({ children, authToken }) => {
   const [courses, setCourses] = useState([]);
-  const [assignedCourses, setAssignedCourses] = useState([]);
+  const [enrolledCourses, setEnrolledCourses] = useState([]);
 
   useEffect(() => {
-    fetchCourses();
-  }, []);
+    if (authToken) {
+      fetchCourses();
+      fetchEnrolledCourses();
+    }
+  }, [authToken]);
 
   const fetchCourses = async () => {
     try {
-      const fetchedCourses = await courseService.fetchCourses();
+      const service = courseService(authToken);
+      const fetchedCourses = await service.fetchCourses();
       setCourses(fetchedCourses);
     } catch (error) {
       console.error("Error fetching courses:", error);
     }
   };
 
-  const fetchAssignedCourses = async (coachId) => {
+  const fetchEnrolledCourses = useCallback(async () => {
     try {
-      const fetchedAssignedCourses = await courseService.getAssignedCourses(
-        coachId
-      );
-      setAssignedCourses(fetchedAssignedCourses);
+      const service = courseService(authToken);
+      const fetchedEnrolledCourses = await service.fetchEnrolledCourses();
+      setEnrolledCourses(fetchedEnrolledCourses);
     } catch (error) {
-      console.error("Error fetching assigned courses:", error);
+      console.error("Error fetching enrolled courses:", error);
     }
-  };
+  }, [authToken]);
 
   const enrollInCourse = async (courseId) => {
     try {
-      await courseService.enrollInCourse(courseId);
+      const service = courseService(authToken);
+      await service.enrollInCourse(courseId);
       setCourses(courses.filter((course) => course.id !== courseId));
     } catch (error) {
       console.error("Error enrolling in course:", error);
@@ -44,9 +49,9 @@ export const CourseProvider = ({ children }) => {
     <CourseContext.Provider
       value={{
         courses,
-        assignedCourses,
+        enrolledCourses,
         fetchCourses,
-        fetchAssignedCourses,
+        fetchEnrolledCourses,
         enrollInCourse,
       }}
     >
@@ -54,3 +59,5 @@ export const CourseProvider = ({ children }) => {
     </CourseContext.Provider>
   );
 };
+
+export default CourseProvider;

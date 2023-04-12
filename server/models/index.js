@@ -6,14 +6,13 @@ const EvaluationQuiz = require("./EvaluationQuiz");
 const Notification = require("./Notification");
 const PrerequisiteQuiz = require("./PrerequisiteQuiz");
 const Rating = require("./Rating");
+const RatingQuiz = require("./RatingQuiz");
 
 User.belongsToMany(Course, { through: Enrollment });
 Course.belongsToMany(User, { through: Enrollment });
 
 Course.belongsTo(Category);
 Category.hasMany(Course);
-
-// Add other associations as needed
 
 module.exports = {
   User,
@@ -24,4 +23,5 @@ module.exports = {
   Notification,
   PrerequisiteQuiz,
   Rating,
+  RatingQuiz,
 };

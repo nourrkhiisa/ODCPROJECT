@@ -1,6 +1,7 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/db");
 const Category = require("./Category");
+const RatingQuiz = require("./RatingQuiz");
 const User = require("./User");
 
 class Course extends Model {}
@@ -51,7 +52,7 @@ Course.init(
     timestamps: false,
   }
 );
-
+Course.hasOne(RatingQuiz, { foreignKey: "courseId", as: "ratingQuiz" });
 Course.belongsTo(Category);
 Course.belongsTo(User, { as: "coach" });
 

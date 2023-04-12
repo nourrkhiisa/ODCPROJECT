@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const adminController = require("../controllers/adminController");
 const authMiddleware = require("../middleware/auth");
-
+const ratingQuizController = require("../controllers/ratingQuizController");
 // router.use(authMiddleware.auth);
 // router.use(authMiddleware.checkRole("admin"));
 router.get("/categories", adminController.getCategories);
@@ -32,5 +32,17 @@ router.get("/coachs", adminController.getCoachList);
 
 // Students
 router.get("/students", adminController.getAllStudents);
+
+router.post(
+  "/courses/:courseId/rating-quiz",
+  ratingQuizController.createRatingQuiz
+);
+router.post(
+  "/courses/:courseId/rating-quiz/submit",
+  ratingQuizController.submitRatingQuiz
+);
+
+// Course ratings
+router.get("/course-ratings", adminController.getCourseRatings);
 
 module.exports = router;

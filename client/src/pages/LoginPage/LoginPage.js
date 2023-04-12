@@ -9,25 +9,7 @@ const LoginPage = () => {
   const { login, setCurrentUser, role } = useContext(AuthContext);
 
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   // Redirect the user to the appropriate dashboard based on their role
-  //   console.log("Current role:", role);
-  //   if (role === "admin") {
-  //     navigate("/admin-dashboard");
-  //   } else if (role === "coach") {
-  //     navigate("/coach-dashboard");
-  //   } else if (role === "student") {
-  //     navigate("/student-dashboard");
-  //   }
-  // }, [role, navigate]);
-  // const handleLogin = async (email, password) => {
-  //   try {
-  //     const loggedInUser = await login(email, password);
-  //     setCurrentUser(loggedInUser);
-  //   } catch (err) {
-  //     setError(err.message);
-  //   }
-  // };
+
   const handleLogin = async (email, password) => {
     try {
       const loggedInUser = await login(email, password);
@@ -46,7 +28,6 @@ const LoginPage = () => {
 
   return (
     <div className="login-page">
-      <h2>Login</h2>
       {error && <div className="alert alert-danger">{error}</div>}
       <LoginForm login={handleLogin} />
     </div>

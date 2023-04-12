@@ -8,6 +8,9 @@ router.use(authMiddleware.checkRole("student"));
 
 // Student profile
 router.get("/profile", studentController.getStudentProfile);
+// Get quiz for a specific course
+router.get("/courses/:id/quiz", studentController.getQuizForCourse);
+router.post("/course/:id/quiz-rating", studentController.submitQuizRating);
 
 // Available courses
 router.get("/courses", studentController.getCourses);

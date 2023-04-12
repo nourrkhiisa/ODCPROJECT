@@ -24,6 +24,7 @@ const auth = async (req, res, next) => {
 
 const checkRole = (role) => {
   return (req, res, next) => {
+    console.log(`Checking role: expected ${role}, got ${req.userRole}`);
     if (req.userRole !== role) {
       return res.status(403).json({ message: "Insufficient permissions" });
     }

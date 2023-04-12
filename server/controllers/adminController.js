@@ -354,6 +354,18 @@ const adminController = {
     }
   },
 
+  async getCourseRatings(req, res) {
+    try {
+      // Fetch the course ratings from the database (assuming you have a Rating model)
+      const ratings = await Rating.findAll();
+
+      // Return the ratings as a JSON response
+      res.json(ratings);
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching course ratings", error });
+    }
+  },
+
   async updateAdminSettings(req, res) {
     try {
       const { password, newPassword, photo } = req.body;

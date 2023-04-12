@@ -19,7 +19,7 @@ axiosInstance.interceptors.request.use(async (config) => {
 
 const authService = {
   async login(email, password) {
-    const response = await axiosInstance.post(`${API_URL}/auth/login`, {
+    const response = await axiosInstance.post(`/auth/login`, {
       email,
       password,
     });
@@ -30,13 +30,13 @@ const authService = {
   },
 
   async logout() {
-    const response = await axiosInstance.post(`${API_URL}/auth/logout`);
+    const response = await axiosInstance.post(`/auth/logout`);
     return response.data;
   },
 
   async getCurrentUser() {
     try {
-      const response = await axiosInstance.get(`${API_URL}/auth/me`);
+      const response = await axiosInstance.get(`/auth/me`);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -45,10 +45,7 @@ const authService = {
   },
 
   async register(userData) {
-    const response = await axiosInstance.post(
-      `${API_URL}/auth/register`,
-      userData
-    );
+    const response = await axiosInstance.post(`/auth/register`, userData);
     return response.data;
   },
 };

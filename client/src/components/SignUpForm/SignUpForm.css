@@ -20,12 +20,14 @@
     width: 100%;
     padding: 8px;
     box-sizing: border-box;
+    border-radius: 10px;
     border: 1px solid #ccc;
   }
   
   button {
     padding: 8px 16px;
-    background-color: #007bff;
+    background-color: black;
+    border-radius: 10px;
     color: #fff;
     border: none;
     cursor: pointer;

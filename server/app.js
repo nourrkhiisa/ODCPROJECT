@@ -22,6 +22,7 @@ app.use("/admin", adminRoutes);
 
 // Connect to the database
 db.authenticate()
+
   .then(() => {
     console.log("Database connected");
     db.sync();

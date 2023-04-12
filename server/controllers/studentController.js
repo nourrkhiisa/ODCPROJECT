@@ -1,4 +1,11 @@
-const { User, Course, Enrollment, Rating, Category } = require("../models");
+const {
+  User,
+  Course,
+  Enrollment,
+  Rating,
+  Category,
+  RatingQuiz,
+} = require("../models");
 const { Op } = require("sequelize");
 
 const studentController = {
@@ -48,15 +55,15 @@ const studentController = {
 
   async enrollInCourse(req, res) {
     try {
-      const courseId = req.params.id;
-      const course = await Course.findByPk(courseId);
+      const CourseId = req.params.id;
+      const course = await Course.findByPk(CourseId);
 
       if (!course) {
         return res.status(404).json({ message: "Course not found" });
       }
 
       const existingEnrollment = await Enrollment.findOne({
-        where: { studentId: req.userId, courseId },
+        where: { studentId: req.userId, CourseId },
       });
 
       if (existingEnrollment) {
@@ -67,12 +74,13 @@ const studentController = {
 
       const newEnrollment = await Enrollment.create({
         studentId: req.userId,
-        courseId,
+        CourseId,
         status: "pending",
       });
 
       res.status(201).json(newEnrollment);
     } catch (error) {
+      console.log(error);
       res.status(500).json({ message: "Error enrolling in course", error });
     }
   },
@@ -137,21 +145,110 @@ const studentController = {
         .json({ message: "Error updating student profile", error });
     }
   },
+  async getQuizForCourse(req, res) {
+    try {
+      const courseId = req.params.id;
+      const course = await Course.findByPk(courseId, {
+        include: [
+          {
+            model: RatingQuiz,
+            as: "ratingQuiz",
+            where: { courseId },
+            required: false,
+          },
+        ],
+      });
+
+      if (!course) {
+        return res.status(404).json({ message: "Course not found" });
+      }
+
+      //  console.log("Fetched course:", course.get());
+      // console.log("Fetched quizzes:", course.ratingQuiz);
+
+      const quizzes = course.ratingQuiz || [];
+
+      res.json(quizzes);
+    } catch (error) {
+      res
+        .status(500)
+        .json({ message: "Error retrieving quizzes for course", error });
+    }
+  },
+
+  async submitQuizRating(req, res) {
+    try {
+      const courseId = req.params.id;
+      const { rating } = req.body;
+
+      const course = await Course.findByPk(courseId);
+
+      if (!course) {
+        return res.status(404).json({ message: "Course not found" });
+      }
+
+      const existingRating = await Rating.findOne({
+        where: { studentId: req.userId, courseId },
+      });
+
+      if (existingRating) {
+        return res
+          .status(400)
+          .json({ message: "You have already submitted a quiz rating" });
+      }
+
+      const newRating = await Rating.create({
+        studentId: req.userId,
+        CourseId: courseId,
+        score: rating,
+      });
+
+      res.status(201).json(newRating);
+    } catch (error) {
+      res.status(500).json({ message: "Error submitting quiz rating", error });
+    }
+  },
 
   async getEnrolledCourses(req, res) {
     try {
       const enrolledCourses = await Enrollment.findAll({
         where: { studentId: req.userId },
-        include: [{ model: Course, include: [{ model: Category }] }],
+        include: [
+          {
+            model: Course,
+            include: [
+              { model: Category },
+              {
+                model: RatingQuiz,
+                as: "ratingQuiz",
+              },
+            ],
+          },
+        ],
       });
 
-      res.json(enrolledCourses);
+      const coursesWithQuiz = [];
+
+      for (const enrollment of enrolledCourses) {
+        const course = enrollment.Course;
+        const courseId = course.id;
+        const ratingQuiz = course.ratingQuiz || null;
+
+        coursesWithQuiz.push({
+          ...course.get(),
+          ratingQuiz: ratingQuiz ? ratingQuiz.get() : null,
+        });
+      }
+
+      res.json(coursesWithQuiz);
     } catch (error) {
+      console.log("Error in getEnrolledCourses:", error);
       res
         .status(500)
         .json({ message: "Error retrieving enrolled courses", error });
     }
   },
+
   async rateCourse(req, res) {
     try {
       const courseId = req.params.id;

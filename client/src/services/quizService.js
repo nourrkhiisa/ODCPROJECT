@@ -5,7 +5,20 @@ const quizService = {
   createEvaluationQuiz: async (courseId, questions) => {
     try {
       const response = await api.post(
-        `/coaches/trainings/${courseId}/evaluation-quiz`,
+        `/admin/courses/${courseId}/rating-quiz`,
+        {
+          questions,
+        }
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+  createRatingQuiz: async (courseId, questions) => {
+    try {
+      const response = await api.post(
+        `/admin/courses/${courseId}/rating-quiz`, // Change this line
         {
           questions,
         }

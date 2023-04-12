@@ -9,6 +9,51 @@ const courseService = {
       throw error;
     }
   },
+  getAllCourseRatings: async () => {
+    try {
+      const response = await api.get("/admin/course-ratings");
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  submitQuizRating: async (courseId, rating) => {
+    try {
+      const response = await api.post(
+        `/students/course/${courseId}/quiz-rating`,
+        {
+          rating,
+        }
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  getQuizByCourseId: async (courseId) => {
+    try {
+      const response = await api.get(`/students/courses/${courseId}/quiz`);
+      console.log(`Quiz for course ${courseId}:`, response.data);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+  getEnrolledCourses: async (studentId) => {
+    try {
+      console.log(
+        "Inside courseService.getEnrolledCourses, studentId:",
+        studentId
+      );
+      const response = await api.get(`/students/enrolled-courses`);
+      console.log("Response from getEnrolledCourses API call:", response.data);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
 
   getCourseById: async (courseId) => {
     try {
@@ -19,11 +64,15 @@ const courseService = {
     }
   },
 
-  enrollInCourse: async (courseId) => {
+  enrollInCourse: async (studentId, courseId) => {
     try {
-      const response = await api.post(`/students/courses/${courseId}/enroll`);
+      // Make sure you're sending the correct data format and required properties
+      const response = await api.post(`/students/courses/${courseId}/enroll`, {
+        studentId,
+      });
       return response.data;
     } catch (error) {
+      console.error("Error enrolling in the course", error);
       throw error;
     }
   },

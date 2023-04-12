@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { AuthContext } from "../../contexts/AuthContext";
 import { CourseContext } from "../../contexts/CourseContext";
+import EnrolledCourses from "../EnrolledCourses";
 import styles from "./styles";
 
 const StudentDashboard = () => {
@@ -44,6 +45,7 @@ const StudentDashboard = () => {
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
       />
+      <EnrolledCourses />
     </View>
   );
 };
