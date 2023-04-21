@@ -31,6 +31,7 @@ const adminController = {
       });
       res.json(categories);
     } catch (error) {
+      console.log(error)
       res.status(500).json({ message: "Error fetching categories", error });
     }
   },

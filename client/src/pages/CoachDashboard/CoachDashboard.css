@@ -1,4 +1,4 @@
-.coach-dashboard {
+/* .coach-dashboard {
     font-family: Arial, sans-serif;
     max-width: 1200px;
     margin: 0 auto;
@@ -36,4 +36,82 @@
       font-size: 1.75rem;
     }
   }
+   */
+
+   .coach-dashboard {
+    font-family: Arial, sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    color: white;
+  }
   
+  .coach-dashboard h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .coach-dashboard button {
+    background-color: orange;
+    border: none;
+    color: white;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s;
+  }
+  
+  .coach-dashboard button:hover,
+  .coach-dashboard button:focus {
+    background-color: black;
+  }
+  
+  .coach-dashboard .section {
+    margin-bottom: 2rem;
+  }
+  
+  @media (max-width: 768px) {
+    .coach-dashboard h1 {
+      font-size: 2rem;
+    }
+    
+    .coach-dashboard button {
+    font-size: 1rem;
+    }
+    }
+    
+    .p-listbox {
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    font-size: 1.25rem;
+    }
+    
+    .p-card {
+    background-color: grey;
+    border: none;
+    color: white;
+    margin-bottom: 1rem;
+    }
+    
+    .p-card-title {
+    color: orange;
+    }
+    
+    .p-card-content {
+    display: flex;
+    justify-content: space-between;
+    }
+    
+    .p-button {
+    background-color: orange;
+    border: none;
+    color: white;
+    font-size: 1.25rem;
+    }
+    
+    .p-button:hover,
+    .p-button:focus {
+    background-color: black;
+    }
