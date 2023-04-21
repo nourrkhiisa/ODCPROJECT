@@ -4,6 +4,7 @@ import LoginForm from "../../components/LoginForm/LoginForm";
 import { AuthContext } from "../../contexts/AuthContext";
 import "./LoginPage.css";
 
+
 const LoginPage = () => {
   const [error, setError] = useState(null);
   const { login, setCurrentUser, role } = useContext(AuthContext);

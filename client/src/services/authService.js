@@ -32,14 +32,33 @@ const authService = {
     localStorage.removeItem("authToken");
   },
 
+  // getCurrentUser: async () => {
+  //   try {
+  //     const response = await api.get("/auth/me");
+  //     return response.data;
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // },
+
   getCurrentUser: async () => {
     try {
-      const response = await api.get("/auth/me");
+      const token = localStorage.getItem("authToken");
+      if (!token) {
+        throw new Error("No token found");
+      }
+  
+      const response = await api.get("/auth/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return response.data;
     } catch (error) {
       throw error;
     }
   },
+  
 
   updatePassword: async (password) => {
     try {

@@ -5,7 +5,15 @@ import CourseList from "../../components/CourseList/CourseList";
 import "./StudentDashboard.css";
 import { useNavigate } from "react-router-dom";
 import EnrolledCourses from "../../components/EnrolledCourses/EnrolledCourses";
-import TakeQuiz from "../../components/TakeQuiz/TakeQuiz"; // Import TakeQuiz instead of RatingQuiz
+import TakeQuiz from "../../components/TakeQuiz/TakeQuiz";
+import { Button } from "primereact/button";
+import { Panel } from "primereact/panel";
+import { Card } from "primereact/card"; // Import the Card component
+import "primereact/resources/themes/saga-blue/theme.css";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
+import "primeflex/primeflex.css";
+
 
 const StudentDashboard = () => {
   const { currentUser } = useContext(AuthContext);
@@ -71,13 +79,10 @@ const StudentDashboard = () => {
     }
   }, [courses, currentUser]);
 
-  const handleCourseSelect = (courseId) => {
-    const course = enrolledCourses.find(
-      (enrolledCourse) => enrolledCourse.courseId === courseId
-    );
-    if (course) {
-      setSelectedQuiz(course.quiz);
-    }
+  const handleCourseSelect = async (courseId) => {
+    const fetchedQuiz = await fetchQuiz(courseId);
+    setSelectedQuiz(fetchedQuiz);
+    setSelectedCourseId(courseId);
   };
 
   const handleQuizSubmit = (selectedCourseId, selectedAnswers) => {
@@ -85,32 +90,51 @@ const StudentDashboard = () => {
     console.log("Quiz submitted with data:", selectedCourseId, selectedAnswers);
   };
 
-  return (
-    <div className="student-dashboard">
-      {currentUser && <h2>Welcome, {currentUser.displayName}</h2>}
-      <h3>Available Courses</h3>
-      <CourseList
-        courses={filteredCourses}
-        enrollInCourse={handleEnrollInCourse}
-      />
-      <h3>Enrolled Courses</h3>
-      <EnrolledCourses
-        studentId={currentUser && currentUser.id}
-        onSelectCourse={handleCourseSelect}
-      />
-      {selectedQuiz ? (
-        <TakeQuiz
-          quiz={selectedQuiz} // Pass selectedQuiz instead of quiz
-          enrolledCourses={enrolledCourses}
-          onSubmit={handleQuizSubmit}
+  const courseTemplate = (course) => {
+    return (
+      <Card
+        title={course.title}
+        subTitle={`Instructor: ${course.instructor}`}
+        style={{ width: "18rem", marginBottom: "1rem" }}
+        className="p-shadow-2"
+      >
+        <p>{course.description}</p>
+        <Button
+          label="Enroll"
+          icon="pi pi-check"
+          onClick={() => handleEnrollInCourse(course.id)}
+          className="p-mt-auto"
         />
-      ) : (
-        <p>Select a course to take the quiz...</p>
-      )}
+      </Card>
+    );
+  };
+  return (
+    <div className="student-dashboard p-d-flex p-flex-column p-ai-center">
+    {currentUser && <h2>Welcome, {currentUser.displayName}</h2>}
+    <h3>Available Courses</h3>
+      <Panel className="p-mb-3">
+        <div className="p-grid p-justify-center">
+          {filteredCourses.map((course) => (
+            <div key={course.id} className="p-col-12 p-md-6 p-lg-4">
+              {courseTemplate(course)}
+            </div>
+          ))}
+        </div>
+      </Panel>
+{selectedQuiz ? (
+<TakeQuiz
+quiz={selectedQuiz}
+enrolledCourses={enrolledCourses}
+onSubmit={handleQuizSubmit}
+selectedCourseId={selectedCourseId} // Pass selectedCourseId as a prop
+/>
+) : (
+<p>Select a course to take the quiz...</p>
+)}
 
-      <button onClick={handleLogout}>Logout</button>
-    </div>
-  );
+<Button label="Logout" icon="pi pi-sign-out" onClick={handleLogout} className="p-mt-3" />
+</div>
+);
 };
 
 export default StudentDashboard;

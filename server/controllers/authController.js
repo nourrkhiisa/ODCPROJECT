@@ -24,7 +24,7 @@ exports.registerUser = async (req, res) => {
       role,
     });
 
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: user.id }, "jkloipmhygtsfyhubcnbnchdllslssmplo", {
       expiresIn: "1h",
     });
 
@@ -50,7 +50,7 @@ exports.loginUser = async (req, res) => {
       return res.status(401).json({ message: "Invalid password" });
     }
 
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: user.id }, "jkloipmhygtsfyhubcnbnchdllslssmplo", {
       expiresIn: "1h",
     });
 

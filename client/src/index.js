@@ -7,8 +7,10 @@ import { NotificationProvider } from "./contexts/NotificationContext";
 import { UserProvider } from "./contexts/UserContext";
 import App from "./App";
 import "./index.css";
+const root = document.getElementById('root');
 
-ReactDOM.render(
+ReactDOM.createRoot(root).render(
+  <React.StrictMode>
   <Router>
     <AuthProvider>
       <UserProvider>
@@ -19,6 +21,7 @@ ReactDOM.render(
         </CourseProvider>
       </UserProvider>
     </AuthProvider>
-  </Router>,
-  document.getElementById("root")
+  </Router>
+  </React.StrictMode>
+ 
 );

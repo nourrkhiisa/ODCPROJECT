@@ -62,7 +62,7 @@ const SignUpForm = ({ onSubmit }) => {
           >
             <option value="student">Student</option>
             <option value="coach">Coach</option>
-            <option value="admin">Admin</option>
+            <option value="administrator">Admin</option>
           </select>
         </div>
         <button type="submit">Sign Up</button>
