@@ -4,7 +4,10 @@ const {
   EvaluationQuiz,
   PrerequisiteQuiz,
   Notification,
+  Enrollment,
+  Attendance,
 } = require("../models");
+const { Op } = require("sequelize");
 
 const coachController = {
   async getCurrentUser(req, res) {
@@ -50,6 +53,7 @@ const coachController = {
   },
   async getCourseDetails(req, res) {
     try {
+      console.log("getCourseDetails called"); // Add this line
       const courseId = req.params.id;
       const course = await Course.findByPk(courseId, {
         include: [{ model: User, as: "coach" }],
@@ -59,6 +63,25 @@ const coachController = {
         return res.status(404).json({ message: "Course not found" });
       }
 
+      // Calculate the number of days between two dates
+      function calculateDaysBetween(startDate, endDate) {
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        const timeDifference = Math.abs(end.getTime() - start.getTime());
+        const days = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+        return days;
+      }
+
+      // Calculate the number of days in the course
+      const daysInCourse = calculateDaysBetween(
+        course.startDate,
+        course.endDate
+      );
+      console.log("Duration of the course:", daysInCourse);
+
+      // Add daysInCourse to the course object
+      course.setDataValue("daysInCourse", daysInCourse);
+
       res.json(course);
     } catch (error) {
       console.log(error);
@@ -67,7 +90,6 @@ const coachController = {
         .json({ message: "Error retrieving course details", error });
     }
   },
-
   async updateCourseOutline(req, res) {
     try {
       const courseId = req.params.id;
@@ -239,6 +261,136 @@ const coachController = {
       res
         .status(500)
         .json({ message: "Error deleting evaluation quiz", error });
+    }
+  },
+  async getStudentsForAssignedCourses(req, res) {
+    try {
+      const coachId = req.params.coachId;
+      const courses = await Course.findAll({
+        where: {
+          coachId: coachId,
+        },
+      });
+      // console.log("Assigned courses:", courses);
+
+      const assignedCourseIds = courses.map((course) => course.id);
+
+      console.log("Assigned course IDs:", assignedCourseIds);
+
+      const enrollments = await Enrollment.findAll({
+        where: {
+          CourseId: {
+            [Op.in]: assignedCourseIds,
+          },
+        },
+      });
+
+      const studentIds = enrollments.map((enrollment) => enrollment.studentId);
+
+      const students = await User.findAll({
+        where: {
+          id: {
+            [Op.in]: studentIds,
+          },
+        },
+        attributes: ["id", "firstName", "lastName"],
+      });
+
+      // console.log("Fetched students:", students);
+
+      res.status(200).json(students);
+    } catch (error) {
+      console.error("Error fetching students for assigned courses:", error);
+      res.status(500).json({ error: error.message });
+    }
+  },
+
+  async getStudentsForCourse(req, res) {
+    try {
+      const courseId = req.params.id;
+      const course = await Course.findByPk(courseId);
+
+      if (!course) {
+        return res.status(404).json({ message: "Course not found" });
+      }
+
+      if (course.coachId !== req.userId) {
+        return res.status(403).json({
+          message: "Not authorized to view students for this course",
+        });
+      }
+
+      const enrollments = await Enrollment.findAll({
+        where: {
+          courseId: courseId,
+        },
+      });
+
+      const studentIds = enrollments.map((enrollment) => enrollment.studentId);
+
+      const students = await User.findAll({
+        where: {
+          id: {
+            [Op.in]: studentIds,
+          },
+        },
+        attributes: ["id", "firstName", "lastName"],
+      });
+
+      res.json(students);
+    } catch (error) {
+      res.status(500).json({
+        message: "Error fetching students for the course",
+        error,
+      });
+    }
+  },
+
+  async markAttendance(req, res) {
+    try {
+      const courseId = req.params.id;
+      const { studentId, date, status } = req.body;
+
+      const course = await Course.findByPk(courseId);
+
+      if (!course) {
+        return res.status(404).json({ message: "Course not found" });
+      }
+
+      if (course.coachId !== req.userId) {
+        return res.status(403).json({
+          message: "Not authorized to mark attendance for this course",
+        });
+      }
+
+      const attendance = await Attendance.findOne({
+        where: {
+          courseId: courseId,
+          studentId: studentId,
+          date: date,
+        },
+      });
+
+      if (attendance) {
+        // Update existing attendance record
+        attendance.status = status;
+        await attendance.save();
+      } else {
+        // Create a new attendance record
+        await Attendance.create({
+          courseId: courseId,
+          studentId: studentId,
+          date: date,
+          status: status,
+        });
+      }
+
+      res.status(201).json({ message: "Attendance marked successfully" });
+    } catch (error) {
+      res.status(500).json({
+        message: "Error marking attendance",
+        error,
+      });
     }
   },
 

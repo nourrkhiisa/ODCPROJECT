@@ -1,39 +1,97 @@
 .coach-dashboard {
-    font-family: Arial, sans-serif;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem;
-  }
-  
+  font-family: Arial, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.coach-dashboard h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.coach-dashboard button {
+  background-color: #007bff;
+  border: none;
+  border-radius: 0.25rem;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s;
+  align-self: flex-start;
+}
+
+.coach-dashboard button:hover,
+.coach-dashboard button:focus {
+  background-color: #0056b3;
+}
+
+.coach-dashboard .section {
+  margin-bottom: 2rem;
+}
+
+.coach-dashboard h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.coach-dashboard ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.coach-dashboard li {
+  margin-bottom: 1rem;
+}
+
+.coach-dashboard label {
+  display: block;
+  margin-top: 0.5rem;
+}
+
+.coach-dashboard input[type="checkbox"] {
+  margin-right: 0.5rem;
+}
+
+.coach-dashboard table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.coach-dashboard th,
+.coach-dashboard td {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.coach-dashboard th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+.coach-dashboard .attendance-days {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.coach-dashboard .attendance-days label {
+  display: block;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
   .coach-dashboard h1 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
+    font-size: 1.75rem;
   }
-  
-  .coach-dashboard button {
-    background-color: #007bff;
-    border: none;
-    border-radius: 0.25rem;
-    color: #fff;
-    cursor: pointer;
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    padding: 0.5rem 1rem;
-    transition: background-color 0.3s;
+
+  .coach-dashboard h2 {
+    font-size: 1.25rem;
   }
-  
-  .coach-dashboard button:hover,
-  .coach-dashboard button:focus {
-    background-color: #0056b3;
-  }
-  
-  .coach-dashboard .section {
-    margin-bottom: 2rem;
-  }
-  
-  @media (max-width: 768px) {
-    .coach-dashboard h1 {
-      font-size: 1.75rem;
-    }
-  }
-  
+}

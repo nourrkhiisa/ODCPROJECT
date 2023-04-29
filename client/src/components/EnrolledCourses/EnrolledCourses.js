@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CourseContext } from "../../contexts/CourseContext";
 import TakeQuiz from "../TakeQuiz/TakeQuiz";
+import "@testing-library/jest-dom";
 
 const EnrolledCourses = ({ studentId }) => {
   const [selectedCourseId, setSelectedCourseId] = useState(null);
@@ -65,6 +66,7 @@ const EnrolledCourses = ({ studentId }) => {
         <>
           <select
             className="enrolled-courses-select"
+            data-testid="enrolled-courses-select"
             value={selectedCourseId || ""}
             onChange={handleChange}
           >

@@ -9,6 +9,9 @@ const {
   Category,
 } = require("../models");
 const { Op } = require("sequelize");
+const nodemailer = require("nodemailer");
+const { sendWelcomeEmail } = require("../services/emailService");
+const bcrypt = require("bcryptjs");
 
 const adminController = {
   async getAdminDashboard(req, res) {
@@ -315,6 +318,33 @@ const adminController = {
       res.json(students);
     } catch (error) {
       res.status(500).json({ message: "Error fetching students", error });
+    }
+  },
+
+  async addStudent(req, res) {
+    const { email, password, firstName, lastName } = req.body;
+
+    try {
+      const existingUser = await User.findOne({ where: { email } });
+
+      if (existingUser) {
+        return res.status(400).json({ message: "User already exists" });
+      }
+
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const student = await User.create({
+        email,
+        password: hashedPassword,
+        firstName,
+        lastName,
+        role: "student",
+      });
+      await sendWelcomeEmail(email, firstName, password);
+
+      res.status(201).json({ message: "Student added successfully", student });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Server error" });
     }
   },
 

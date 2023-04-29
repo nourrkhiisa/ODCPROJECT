@@ -17,14 +17,6 @@ const SignUpPage = () => {
     role,
   }) => {
     try {
-      console.log("Request body from frontend:", {
-        email,
-        password,
-        firstName,
-        lastName,
-        role,
-      }); // Add this line to log the request body
-
       await signUp(email, password, firstName, lastName, role);
       navigate("/login");
     } catch (err) {

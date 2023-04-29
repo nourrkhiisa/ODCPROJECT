@@ -6,6 +6,8 @@ const ratingQuizController = require("../controllers/ratingQuizController");
 // router.use(authMiddleware.auth);
 // router.use(authMiddleware.checkRole("admin"));
 router.get("/categories", adminController.getCategories);
+// Add this line in adminRoutes
+router.post("/students", adminController.addStudent);
 
 // Admin dashboard
 router.get("/dashboard", adminController.getAdminDashboard);

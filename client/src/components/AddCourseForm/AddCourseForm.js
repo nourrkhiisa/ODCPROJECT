@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const AddCourseForm = ({ onSubmit }) => {
+const AddCourseForm = ({ onSubmit, coaches, categories }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -12,9 +12,13 @@ const AddCourseForm = ({ onSubmit }) => {
   const [isOnline, setIsOnline] = useState(false);
   const [location, setLocation] = useState("");
   const [link, setLink] = useState("");
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const locationString = `${location} (${latitude}, ${longitude})`;
+
     onSubmit({
       title,
       description,
@@ -22,21 +26,7 @@ const AddCourseForm = ({ onSubmit }) => {
       endDate,
       maxStudents,
       isOnline,
-      location,
-
-      link,
-      CategoryId,
-      coachId,
-    });
-    console.log({
-      title,
-      description,
-      startDate,
-      endDate,
-      maxStudents,
-      isOnline,
-      location,
-
+      location: locationString,
       link,
       CategoryId,
       coachId,
@@ -120,6 +110,26 @@ const AddCourseForm = ({ onSubmit }) => {
         />
       </div>
       <div>
+        <label htmlFor="latitude">Latitude:</label>
+        <input
+          type="text"
+          id="latitude"
+          name="latitude"
+          value={latitude}
+          onChange={(event) => setLatitude(event.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor="longitude">Longitude:</label>
+        <input
+          type="text"
+          id="longitude"
+          name="longitude"
+          value={longitude}
+          onChange={(event) => setLongitude(event.target.value)}
+        />
+      </div>
+      <div>
         <label htmlFor="link">Link:</label>
         <input
           type="text"
@@ -131,26 +141,38 @@ const AddCourseForm = ({ onSubmit }) => {
       </div>
 
       <div>
-        <label htmlFor="CategoryId">Category ID:</label>
-        <input
-          type="text"
+        <label htmlFor="CategoryId">Category:</label>
+        <select
           id="CategoryId"
           name="CategoryId"
           value={CategoryId}
           onChange={(event) => setCategoryId(event.target.value)}
           required
-        />
+        >
+          <option value="">Select a category</option>
+          {categories.map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
+          ))}
+        </select>
       </div>
       <div>
-        <label htmlFor="coachId">Coach ID:</label>
-        <input
-          type="text"
+        <label htmlFor="coachId">Coach:</label>
+        <select
           id="coachId"
           name="coachId"
           value={coachId}
           onChange={(event) => setCoachId(event.target.value)}
           required
-        />
+        >
+          <option value="">Select a coach</option>
+          {coaches.map((coach) => (
+            <option key={coach.id} value={coach.id}>
+              {coach.firstName} {coach.lastName}
+            </option>
+          ))}
+        </select>
       </div>
       <button type="submit">Add Course</button>
     </form>

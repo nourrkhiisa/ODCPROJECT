@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, useCallback } from "react";
+import axios from "axios";
 import courseService from "../services/courseService";
 
 export const CourseContext = createContext();
@@ -7,6 +8,12 @@ export const CourseProvider = ({ children }) => {
   const [courses, setCourses] = useState([]);
   const [assignedCourses, setAssignedCourses] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [daysInCourse, setDaysInCourse] = useState(0);
+
+  const [studentsForAssignedCourses, setStudentsForAssignedCourses] = useState(
+    []
+  );
+
   const [enrolledCourses, setEnrolledCourses] = useState([]);
   const [enrolledCoursesWithQuizzes, setEnrolledCoursesWithQuizzes] = useState(
     []
@@ -51,7 +58,30 @@ export const CourseProvider = ({ children }) => {
       console.error("Error fetching categories:", error);
     }
   };
-
+  const fetchStudentsForAssignedCourses = async (coachId) => {
+    try {
+      const data = await courseService.getStudentsForAssignedCourses(coachId);
+      console.log("Fetched students for assigned courses:", data); // Add this line
+      setStudentsForAssignedCourses(data);
+    } catch (error) {
+      console.error("Error fetching students for assigned courses:", error);
+    }
+  };
+  const fetchCourseDetails = async (courseId) => {
+    try {
+      const course = await courseService.getCourseById(courseId);
+      setAssignedCourses((prevCourses) =>
+        prevCourses.map((prevCourse) =>
+          prevCourse.id === courseId
+            ? { ...prevCourse, daysInCourse: course.daysInCourse }
+            : prevCourse
+        )
+      );
+      console.log(course.daysInCourse);
+    } catch (error) {
+      console.error("Error fetching course details:", error);
+    }
+  };
   const fetchEnrolledCourses = useCallback(
     async (studentId) => {
       console.log("Inside fetchEnrolledCourses function");
@@ -90,7 +120,6 @@ export const CourseProvider = ({ children }) => {
         const filteredEnrolledCourses = enrolledCoursesWithQuiz.filter(
           (enrolledCourse) => enrolledCourse !== null
         );
-
         console.log("enrolledCoursesWithQuiz:", filteredEnrolledCourses);
         setEnrolledCoursesWithQuizzes(filteredEnrolledCourses);
         console.log(
@@ -111,7 +140,6 @@ export const CourseProvider = ({ children }) => {
   const fetchAssignedCourses = async (coachId) => {
     try {
       console.log("fetchAssignedCourses called");
-
       const fetchedAssignedCourses = await courseService.getAssignedCourses(
         coachId
       );
@@ -147,15 +175,19 @@ export const CourseProvider = ({ children }) => {
         createCategory,
         categories,
         fetchCategories,
-        assignedCourses, // Add this line
+        assignedCourses,
         fetchAssignedCourses,
-        enrolledCoursesWithQuizzes, // Add this line
+        enrolledCoursesWithQuizzes,
         courseRatings,
         enrolledCourses,
-        fetchEnrolledCourses, // Make sure this line is here
-        quiz, // Add this line
-        fetchQuiz, // Add this line
+        fetchEnrolledCourses,
+        quiz,
+        fetchQuiz,
         setSelectedCourseId,
+        studentsForAssignedCourses, // Add this line
+        fetchStudentsForAssignedCourses, // Add this line
+        daysInCourse,
+        fetchCourseDetails,
       }}
     >
       {children}

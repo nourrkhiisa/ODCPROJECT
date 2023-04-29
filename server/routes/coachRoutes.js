@@ -8,6 +8,10 @@ router.use(authMiddleware.checkRole("coach"));
 
 // Coach profile
 router.get("/profile", coachController.getCoachProfile);
+router.get("/:coachId/students", coachController.getStudentsForAssignedCourses);
+router.get("/courses/:id/students", coachController.getStudentsForCourse);
+router.post("/courses/:id/attendance", coachController.markAttendance);
+router.get("/courses/:id", coachController.getCourseDetails);
 
 // Coach's assigned trainings
 router.get("/trainings/:coachId", coachController.getAssignedCourses);

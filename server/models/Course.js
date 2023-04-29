@@ -45,6 +45,14 @@ Course.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
+    // picture: {
+    //   type: DataTypes.STRING,
+    //   allowNull: true,
+    // },
+    // videoTrailer: {
+    //   type: DataTypes.STRING,
+    //   allowNull: true,
+    // },
   },
   {
     sequelize,

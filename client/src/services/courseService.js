@@ -9,6 +9,14 @@ const courseService = {
       throw error;
     }
   },
+  getStudentsForAssignedCourses: async (coachId) => {
+    try {
+      const response = await api.get(`/coaches/${coachId}/students`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
   getAllCourseRatings: async () => {
     try {
       const response = await api.get("/admin/course-ratings");
@@ -57,7 +65,7 @@ const courseService = {
 
   getCourseById: async (courseId) => {
     try {
-      const response = await api.get(`/courses/${courseId}`);
+      const response = await api.get(`/coaches/courses/${courseId}`);
       return response.data;
     } catch (error) {
       throw error;
@@ -96,6 +104,15 @@ const courseService = {
   createCourse: async (course) => {
     try {
       const response = await api.post("/admin/courses", course);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  addStudent: async (student) => {
+    try {
+      const response = await api.post("/admin/students", student);
       return response.data;
     } catch (error) {
       throw error;

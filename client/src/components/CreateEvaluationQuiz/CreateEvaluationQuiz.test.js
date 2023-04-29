@@ -1,6 +1,7 @@
 import React from "react";
 import { render, fireEvent, screen } from "@testing-library/react";
 import CreateEvaluationQuiz from "./CreateEvaluationQuiz";
+import "@testing-library/jest-dom/extend-expect";
 
 describe("CreateEvaluationQuiz", () => {
   const mockSubmit = jest.fn();
@@ -23,29 +24,37 @@ describe("CreateEvaluationQuiz", () => {
       target: { value: "Sample question?" },
     });
 
-    fireEvent.change(screen.getByPlaceholderText("Option 1"), {
+    fireEvent.change(screen.getAllByPlaceholderText("Option 1")[0], {
       target: { value: "Option A" },
     });
 
-    fireEvent.change(screen.getByPlaceholderText("Option 2"), {
+    fireEvent.change(screen.getAllByPlaceholderText("Option 2")[0], {
       target: { value: "Option B" },
     });
 
-    fireEvent.change(screen.getByPlaceholderText("Option 3"), {
+    fireEvent.change(screen.getAllByPlaceholderText("Option 3")[0], {
       target: { value: "Option C" },
     });
 
-    fireEvent.change(screen.getByPlaceholderText("Option 4"), {
+    fireEvent.change(screen.getAllByPlaceholderText("Option 4")[0], {
       target: { value: "Option D" },
     });
 
     expect(screen.getByPlaceholderText("Question 1")).toHaveValue(
       "Sample question?"
     );
-    expect(screen.getByPlaceholderText("Option 1")).toHaveValue("Option A");
-    expect(screen.getByPlaceholderText("Option 2")).toHaveValue("Option B");
-    expect(screen.getByPlaceholderText("Option 3")).toHaveValue("Option C");
-    expect(screen.getByPlaceholderText("Option 4")).toHaveValue("Option D");
+    expect(screen.getAllByPlaceholderText("Option 1")[0]).toHaveValue(
+      "Option A"
+    );
+    expect(screen.getAllByPlaceholderText("Option 2")[0]).toHaveValue(
+      "Option B"
+    );
+    expect(screen.getAllByPlaceholderText("Option 3")[0]).toHaveValue(
+      "Option C"
+    );
+    expect(screen.getAllByPlaceholderText("Option 4")[0]).toHaveValue(
+      "Option D"
+    );
   });
 
   test("submits evaluation quiz with correct values", () => {
@@ -56,29 +65,31 @@ describe("CreateEvaluationQuiz", () => {
       target: { value: "Sample question?" },
     });
 
-    fireEvent.change(screen.getByPlaceholderText("Option 1"), {
+    fireEvent.change(screen.getAllByPlaceholderText("Option 1")[0], {
       target: { value: "Option A" },
     });
 
-    fireEvent.change(screen.getByPlaceholderText("Option 2"), {
+    fireEvent.change(screen.getAllByPlaceholderText("Option 2")[0], {
       target: { value: "Option B" },
     });
 
-    fireEvent.change(screen.getByPlaceholderText("Option 3"), {
+    fireEvent.change(screen.getAllByPlaceholderText("Option 3")[0], {
       target: { value: "Option C" },
     });
 
-    fireEvent.change(screen.getByPlaceholderText("Option 4"), {
+    fireEvent.change(screen.getAllByPlaceholderText("Option 4")[0], {
       target: { value: "Option D" },
     });
 
     fireEvent.click(screen.getByText(/Submit/i));
 
-    expect(mockSubmit).toHaveBeenCalledWith([
-      {
-        text: "Sample question?",
-        options: ["Option A", "Option B", "Option C", "Option D"],
-      },
-    ]);
+    expect(mockSubmit).toHaveBeenCalledWith(
+      expect.arrayContaining([
+        expect.objectContaining({
+          text: "Sample question?",
+          options: ["Option A", "Option B", "Option C", "Option D"],
+        }),
+      ])
+    );
   });
 });

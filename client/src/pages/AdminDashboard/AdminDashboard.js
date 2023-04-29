@@ -9,7 +9,8 @@ import AddCourseForm from "../../components/AddCourseForm/AddCourseForm";
 import CourseList from "../../components/CourseList/CourseList";
 import "./AdminDashboard.css";
 import CreateRatingQuizForm from "../../components/CreateRatingQuizForm/CreateRatingQuizForm";
-
+import AddStudentForm from "../../components/AddStudentForm/AddStudentForm";
+import courseService from "../../services/courseService";
 import { useNavigate } from "react-router-dom";
 const AdminDashboard = () => {
   const { createRatingQuiz } = useQuizContext();
@@ -34,6 +35,14 @@ const AdminDashboard = () => {
       navigate("/login");
     } catch (error) {
       console.error("Error logging out:", error);
+    }
+  };
+  const handleAddStudent = async (student) => {
+    try {
+      await courseService.addStudent(student);
+      alert("Student added successfully!");
+    } catch (err) {
+      alert("Error adding student: " + err.message);
     }
   };
 
@@ -68,7 +77,11 @@ const AdminDashboard = () => {
       <button onClick={handleLogout}>Logout</button>
       <div className="section">
         <h2>Create Course</h2>
-        <AddCourseForm onSubmit={handleAddCourse} />
+        <AddCourseForm
+          onSubmit={handleAddCourse}
+          coaches={coaches}
+          categories={categories}
+        />
       </div>
 
       <div className="section">
@@ -153,6 +166,10 @@ const AdminDashboard = () => {
             </li>
           ))}
         </ul>
+      </div>
+      <div className="section">
+        <h2>Add Student</h2>
+        <AddStudentForm onSubmit={handleAddStudent} />
       </div>
     </div>
   );

@@ -28,14 +28,6 @@ describe("SignUpPage", () => {
   it("renders the sign-up form and handles sign-up correctly", async () => {
     const signUpMock = jest.fn(
       async (email, password, firstName, lastName, role) => {
-        console.log("Request body from frontend:", {
-          email,
-          password,
-          firstName,
-          lastName,
-          role,
-        });
-
         return Promise.resolve();
       }
     );

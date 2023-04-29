@@ -2,11 +2,26 @@ import React from "react";
 import { render, fireEvent, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import AddCourseForm from "./AddCourseForm";
+const coaches = [
+  { id: 1, name: "Coach 1" },
+  { id: 2, name: "Coach 2" },
+];
+
+const categories = [
+  { id: 1, name: "Category 1" },
+  { id: 2, name: "Category 2" },
+];
 
 describe("AddCourseForm", () => {
   it("renders the add course form correctly", () => {
     const onSubmitMock = jest.fn();
-    render(<AddCourseForm onSubmit={onSubmitMock} />);
+    render(
+      <AddCourseForm
+        onSubmit={onSubmitMock}
+        coaches={coaches}
+        categories={categories}
+      />
+    );
 
     // You can add more input fields and labels to test if they render correctly
     expect(screen.getByLabelText("Title:")).toBeInTheDocument();
@@ -18,7 +33,13 @@ describe("AddCourseForm", () => {
 
   it("handles adding a course correctly", () => {
     const onSubmitMock = jest.fn();
-    render(<AddCourseForm onSubmit={onSubmitMock} />);
+    render(
+      <AddCourseForm
+        onSubmit={onSubmitMock}
+        coaches={coaches}
+        categories={categories}
+      />
+    );
 
     fireEvent.change(screen.getByLabelText("Title:"), {
       target: { value: "New Course" },
@@ -43,10 +64,10 @@ describe("AddCourseForm", () => {
     fireEvent.change(screen.getByLabelText("Link:"), {
       target: { value: "http://example.com" },
     });
-    fireEvent.change(screen.getByLabelText("Category ID:"), {
+    fireEvent.change(screen.getByLabelText("Category:"), {
       target: { value: "1" },
     });
-    fireEvent.change(screen.getByLabelText("Coach ID:"), {
+    fireEvent.change(screen.getByLabelText("Coach:"), {
       target: { value: "2" },
     });
 
@@ -60,7 +81,7 @@ describe("AddCourseForm", () => {
       endDate: "2023-05-20",
       maxStudents: "30",
       isOnline: true,
-      location: "New York",
+      location: "New York (, )",
       link: "http://example.com",
       CategoryId: "1",
       coachId: "2",
